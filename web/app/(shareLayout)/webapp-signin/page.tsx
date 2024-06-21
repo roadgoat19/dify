@@ -137,10 +137,10 @@ const WebSSOForm: FC = () => {
             <div className="w-full mx-auto mt-10">
               <Button
                 tabIndex={0}
-                variant='primary'
+                type='primary'
                 onClick={() => { handleSSOLogin() }}
                 disabled={isLoading}
-                className="w-full !text-sm"
+                className="w-full !fone-medium !text-sm"
               >{t('login.sso')}
               </Button>
             </div>

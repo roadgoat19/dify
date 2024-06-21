@@ -11,6 +11,7 @@ from core.model_runtime.entities.model_entities import ModelType
 from core.model_runtime.errors.validate import CredentialsValidateFailedError
 from core.model_runtime.utils.encoders import jsonable_encoder
 from libs.login import login_required
+from models.account import TenantAccountRole
 from services.model_load_balancing_service import ModelLoadBalancingService
 from services.model_provider_service import ModelProviderService
 
@@ -42,9 +43,6 @@ class DefaultModelApi(Resource):
     @login_required
     @account_initialization_required
     def post(self):
-        if not current_user.is_admin_or_owner:
-            raise Forbidden()
-        
         parser = reqparse.RequestParser()
         parser.add_argument('model_settings', type=list, required=True, nullable=False, location='json')
         args = parser.parse_args()
@@ -98,7 +96,7 @@ class ModelProviderModelApi(Resource):
     @login_required
     @account_initialization_required
     def post(self, provider: str):
-        if not current_user.is_admin_or_owner:
+        if not TenantAccountRole.is_privileged_role(current_user.current_tenant.current_role):
             raise Forbidden()
 
         tenant_id = current_user.current_tenant_id
@@ -164,7 +162,7 @@ class ModelProviderModelApi(Resource):
     @login_required
     @account_initialization_required
     def delete(self, provider: str):
-        if not current_user.is_admin_or_owner:
+        if not TenantAccountRole.is_privileged_role(current_user.current_tenant.current_role):
             raise Forbidden()
 
         tenant_id = current_user.current_tenant_id

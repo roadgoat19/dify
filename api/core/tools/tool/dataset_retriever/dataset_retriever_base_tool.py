@@ -2,7 +2,7 @@ from abc import abstractmethod
 from typing import Any, Optional
 
 from msal_extensions.persistence import ABC
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 from core.callback_handler.index_tool_callback_handler import DatasetIndexToolCallbackHandler
 
@@ -17,7 +17,9 @@ class DatasetRetrieverBaseTool(BaseModel, ABC):
     hit_callbacks: list[DatasetIndexToolCallbackHandler] = []
     return_resource: bool
     retriever_from: str
-    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    class Config:
+        arbitrary_types_allowed = True
 
     @abstractmethod
     def _run(

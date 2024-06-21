@@ -1,7 +1,6 @@
 from typing import Any, Literal, Union
 
-from pydantic import BaseModel, field_validator
-from pydantic_core.core_schema import ValidationInfo
+from pydantic import BaseModel, validator
 
 from core.workflow.entities.base_node_data_entities import BaseNodeData
 
@@ -14,14 +13,13 @@ class ToolEntity(BaseModel):
     tool_label: str # redundancy
     tool_configurations: dict[str, Any]
 
-    @field_validator('tool_configurations', mode='before')
-    @classmethod
-    def validate_tool_configurations(cls, value, values: ValidationInfo):
+    @validator('tool_configurations', pre=True, always=True)
+    def validate_tool_configurations(cls, value, values):
         if not isinstance(value, dict):
             raise ValueError('tool_configurations must be a dictionary')
         
-        for key in values.data.get('tool_configurations', {}).keys():
-            value = values.data.get('tool_configurations', {}).get(key)
+        for key in values.get('tool_configurations', {}).keys():
+            value = values.get('tool_configurations', {}).get(key)
             if not isinstance(value, str | int | float | bool):
                 raise ValueError(f'{key} must be a string')
             
@@ -32,11 +30,10 @@ class ToolNodeData(BaseNodeData, ToolEntity):
         value: Union[Any, list[str]]
         type: Literal['mixed', 'variable', 'constant']
 
-        @field_validator('type', mode='before')
-        @classmethod
-        def check_type(cls, value, validation_info: ValidationInfo):
+        @validator('type', pre=True, always=True)
+        def check_type(cls, value, values):
             typ = value
-            value = validation_info.data.get('value')
+            value = values.get('value')
             if typ == 'mixed' and not isinstance(value, str):
                 raise ValueError('value must be a string')
             elif typ == 'variable':
@@ -48,7 +45,7 @@ class ToolNodeData(BaseNodeData, ToolEntity):
             elif typ == 'constant' and not isinstance(value, str | int | float | bool):
                 raise ValueError('value must be a string, int, float, or bool')
             return typ
-
+        
     """
     Tool Node Schema
     """

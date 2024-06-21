@@ -103,9 +103,9 @@ const InputsPanel = ({ onRun }: Props) => {
       </div>
       <div className='flex items-center justify-between px-4 py-2'>
         <Button
-          variant='primary'
+          type='primary'
           disabled={!canRun || workflowRunningData?.result?.status === WorkflowRunningStatus.Running}
-          className='w-full'
+          className='py-0 w-full h-8 rounded-lg text-[13px] font-medium'
           onClick={doRun}
         >
           {t('workflow.singleRun.startRun')}

@@ -107,6 +107,7 @@ const ModelLoadBalancingModal = ({ provider, model, open = false, onClose, onSav
     <Modal
       isShow={Boolean(model) && open}
       onClose={onClose}
+      wrapperClassName='!z-30'
       className='max-w-none pt-8 px-8 w-[640px]'
       title={
         <div className='pb-3 font-semibold'>
@@ -171,7 +172,7 @@ const ModelLoadBalancingModal = ({ provider, model, open = false, onClose, onSav
             <div className='flex items-center justify-end gap-2 mt-6'>
               <Button onClick={onClose}>{t('common.operation.cancel')}</Button>
               <Button
-                variant='primary'
+                type='primary'
                 onClick={handleSave}
                 disabled={
                   loading

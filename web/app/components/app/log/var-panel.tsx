@@ -3,10 +3,7 @@ import { useBoolean } from 'ahooks'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  RiArrowDownSLine,
-  RiArrowRightSLine,
-} from '@remixicon/react'
+import { ChevronDown, ChevronRight } from '@/app/components/base/icons/src/vender/line/arrows'
 import ImagePreview from '@/app/components/base/image-uploader/image-preview'
 
 type Props = {
@@ -30,8 +27,8 @@ const VarPanel: FC<Props> = ({
       >
         {
           isCollapse
-            ? <RiArrowRightSLine className='w-3 h-3 text-gray-300' />
-            : <RiArrowDownSLine className='w-3 h-3 text-gray-300' />
+            ? <ChevronRight className='w-3 h-3 text-gray-300' />
+            : <ChevronDown className='w-3 h-3 text-gray-300' />
         }
         <div className='text-sm font-semibold text-indigo-800 uppercase'>{t('appLog.detail.variables')}</div>
       </div>

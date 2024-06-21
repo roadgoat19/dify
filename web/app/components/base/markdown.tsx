@@ -39,14 +39,6 @@ const getCorrectCapitalizationLanguageName = (language: string) => {
 
   return language.charAt(0).toUpperCase() + language.substring(1)
 }
-
-const preprocessLaTeX = (content: string) => {
-  if (typeof content !== 'string')
-    return content
-  return content.replace(/\\\[(.*?)\\\]/gs, (_, equation) => `$$${equation}$$`)
-    .replace(/\\\((.*?)\\\)/gs, (_, equation) => `$${equation}$`)
-}
-
 export function PreCode(props: { children: any }) {
   const ref = useRef<HTMLPreElement>(null)
 
@@ -90,13 +82,12 @@ const useLazyLoad = (ref: RefObject<Element>): boolean => {
 
 export function Markdown(props: { content: string; className?: string }) {
   const [isSVG, setIsSVG] = useState(false)
-  const latexContent = preprocessLaTeX(props.content)
   return (
     <div className={cn(props.className, 'markdown-body')}>
       <ReactMarkdown
         remarkPlugins={[[RemarkMath, { singleDollarTextMath: false }], RemarkGfm, RemarkBreaks]}
         rehypePlugins={[
-          RehypeKatex as any,
+          RehypeKatex,
         ]}
         components={{
           code({ inline, className, children, ...props }) {
@@ -188,7 +179,7 @@ export function Markdown(props: { content: string; className?: string }) {
         linkTarget='_blank'
       >
         {/* Markdown detect has problem. */}
-        {latexContent}
+        {props.content}
       </ReactMarkdown>
     </div>
   )

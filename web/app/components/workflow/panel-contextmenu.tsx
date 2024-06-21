@@ -13,7 +13,6 @@ import {
   useWorkflowStartRun,
 } from './hooks'
 import AddBlock from './operator/add-block'
-import { useOperator } from './operator/hooks'
 import { exportAppConfig } from '@/service/apps'
 import { useToastContext } from '@/app/components/base/toast'
 import { useStore as useAppStore } from '@/app/components/app/store'
@@ -28,7 +27,6 @@ const PanelContextmenu = () => {
   const { handleNodesPaste } = useNodesInteractions()
   const { handlePaneContextmenuCancel } = usePanelInteractions()
   const { handleStartWorkflowRun } = useWorkflowStartRun()
-  const { handleAddNote } = useOperator()
 
   useClickAway(() => {
     handlePaneContextmenuCancel()
@@ -80,16 +78,6 @@ const PanelContextmenu = () => {
             crossAxis: -4,
           }}
         />
-        <div
-          className='flex items-center justify-between px-3 h-8 text-sm text-gray-700 rounded-lg cursor-pointer hover:bg-gray-50'
-          onClick={(e) => {
-            e.stopPropagation()
-            handleAddNote()
-            handlePaneContextmenuCancel()
-          }}
-        >
-          {t('workflow.nodes.note.addNote')}
-        </div>
         <div
           className='flex items-center justify-between px-3 h-8 text-sm text-gray-700 rounded-lg cursor-pointer hover:bg-gray-50'
           onClick={() => {

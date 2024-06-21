@@ -53,7 +53,7 @@ function AppCard({
 }: IAppCardProps) {
   const router = useRouter()
   const pathname = usePathname()
-  const { currentWorkspace, isCurrentWorkspaceManager, isCurrentWorkspaceEditor } = useAppContext()
+  const { currentWorkspace, isCurrentWorkspaceManager } = useAppContext()
   const [showSettingsModal, setShowSettingsModal] = useState(false)
   const [showEmbedded, setShowEmbedded] = useState(false)
   const [showCustomizeModal, setShowCustomizeModal] = useState(false)
@@ -74,17 +74,16 @@ function AppCard({
     if (appInfo.mode !== 'completion' && appInfo.mode !== 'workflow')
       operationsMap.webapp.push({ opName: t('appOverview.overview.appInfo.embedded.entry'), opIcon: EmbedIcon })
 
-    if (isCurrentWorkspaceEditor)
+    if (isCurrentWorkspaceManager)
       operationsMap.webapp.push({ opName: t('appOverview.overview.appInfo.settings.entry'), opIcon: Cog8ToothIcon })
 
     return operationsMap
-  }, [isCurrentWorkspaceEditor, appInfo, t])
+  }, [isCurrentWorkspaceManager, appInfo, t])
 
   const isApp = cardType === 'webapp'
   const basicName = isApp
     ? appInfo?.site?.title
     : t('appOverview.overview.apiInfo.title')
-  const toggleDisabled = isApp ? !isCurrentWorkspaceEditor : !isCurrentWorkspaceManager
   const runningStatus = isApp ? appInfo.enable_site : appInfo.enable_api
   const { app_base_url, access_token } = appInfo.site ?? {}
   const appMode = (appInfo.mode !== 'completion' && appInfo.mode !== 'workflow') ? 'chat' : appInfo.mode
@@ -155,7 +154,7 @@ function AppCard({
                 ? t('appOverview.overview.status.running')
                 : t('appOverview.overview.status.disable')}
             </Tag>
-            <Switch defaultValue={runningStatus} onChange={onChangeStatus} disabled={toggleDisabled} />
+            <Switch defaultValue={runningStatus} onChange={onChangeStatus} disabled={currentWorkspace?.role === 'normal'} />
           </div>
         </div>
         <div className="flex flex-col justify-center py-2">
@@ -221,7 +220,7 @@ function AppCard({
                 : !runningStatus
             return (
               <Button
-                className="mr-2"
+                className="mr-2 border-[0.5px] !h-8 hover:outline hover:outline-[0.5px] hover:outline-gray-300 text-gray-700 font-medium bg-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)]"
                 key={op.opName}
                 onClick={genClickFuncByName(op.opName)}
                 disabled={disabled}

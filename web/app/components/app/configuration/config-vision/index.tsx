@@ -2,12 +2,10 @@
 import type { FC } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  RiQuestionLine,
-} from '@remixicon/react'
 import { useContext } from 'use-context-selector'
 import Panel from '../base/feature-panel'
 import ParamConfig from './param-config'
+import { HelpCircle } from '@/app/components/base/icons/src/vender/line/general'
 import Tooltip from '@/app/components/base/tooltip'
 import Switch from '@/app/components/base/switch'
 import { Eye } from '@/app/components/base/icons/src/vender/solid/general'
@@ -36,7 +34,7 @@ const ConfigVision: FC = () => {
           <Tooltip htmlContent={<div className='w-[180px]' >
             {t('appDebug.vision.description')}
           </div>} selector='config-vision-tooltip'>
-            <RiQuestionLine className='w-[14px] h-[14px] text-gray-400' />
+            <HelpCircle className='w-[14px] h-[14px] text-gray-400' />
           </Tooltip>
         </div>
       }

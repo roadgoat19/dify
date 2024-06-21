@@ -28,7 +28,6 @@ def parse_app_site_args():
                         required=False,
                         location='json')
     parser.add_argument('prompt_public', type=bool, required=False, location='json')
-    parser.add_argument('show_workflow_steps', type=bool, required=False, location='json')
     return parser.parse_args()
 
 
@@ -41,8 +40,8 @@ class AppSite(Resource):
     def post(self, app_model):
         args = parse_app_site_args()
 
-        # The role of the current user in the ta table must be editor, admin, or owner
-        if not current_user.is_editor:
+        # The role of the current user in the ta table must be admin or owner
+        if not current_user.is_admin_or_owner:
             raise Forbidden()
 
         site = db.session.query(Site). \
@@ -60,12 +59,18 @@ class AppSite(Resource):
             'privacy_policy',
             'custom_disclaimer',
             'customize_token_strategy',
-            'prompt_public',
-            'show_workflow_steps'
+            'prompt_public'
         ]:
             value = args.get(attr_name)
             if value is not None:
                 setattr(site, attr_name, value)
+
+                if attr_name == 'title':
+                    app_model.name = value
+                elif attr_name == 'icon':
+                    app_model.icon = value
+                elif attr_name == 'icon_background':
+                    app_model.icon_background = value
 
         db.session.commit()
 

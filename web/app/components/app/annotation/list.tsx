@@ -3,8 +3,7 @@ import type { FC } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import cn from 'classnames'
-import { RiDeleteBinLine } from '@remixicon/react'
-import { Edit02 } from '../../base/icons/src/vender/line/general'
+import { Edit02, Trash03 } from '../../base/icons/src/vender/line/general'
 import s from './style.module.css'
 import type { AnnotationItem } from './type'
 import RemoveAnnotationConfirmModal from './remove-annotation-confirm-modal'
@@ -78,7 +77,7 @@ const List: FC<Props> = ({
                       setShowConfirmDelete(true)
                     }}
                   >
-                    <RiDeleteBinLine className='w-4 h-4' />
+                    <Trash03 className='w-4 h-4' />
                   </div>
                 </div>
               </td>

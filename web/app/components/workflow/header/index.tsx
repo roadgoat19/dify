@@ -171,7 +171,11 @@ const Header: FC = () => {
             <RunAndHistory />
             <div className='mx-2 w-[1px] h-3.5 bg-gray-200'></div>
             <Button
-              className='mr-2'
+              className={`
+                mr-2 px-3 py-0 h-8 bg-white text-[13px] font-medium text-gray-700
+                border-[0.5px] border-gray-200 shadow-xs
+                ${nodesReadOnly && 'opacity-50 !cursor-not-allowed'}
+              `}
               onClick={handleShowFeatures}
             >
               <Grid01 className='w-4 h-4 mr-1 text-gray-500' />
@@ -202,8 +206,11 @@ const Header: FC = () => {
             <ViewHistory withText />
             <div className='mx-2 w-[1px] h-3.5 bg-gray-200'></div>
             <Button
-              variant='primary'
-              className='mr-2'
+              type='primary'
+              className={`
+                mr-2 px-3 py-0 h-8 text-[13px] font-medium
+                border-[0.5px] border-gray-200 shadow-xs
+              `}
               onClick={handleGoBackToEdit}
             >
               <ArrowNarrowLeft className='w-4 h-4 mr-1' />
@@ -216,6 +223,10 @@ const Header: FC = () => {
         restoring && (
           <div className='flex items-center'>
             <Button
+              className={`
+                px-3 py-0 h-8 bg-white text-[13px] font-medium text-gray-700
+                border-[0.5px] border-gray-200 shadow-xs
+              `}
               onClick={handleShowFeatures}
             >
               <Grid01 className='w-4 h-4 mr-1 text-gray-500' />
@@ -223,14 +234,15 @@ const Header: FC = () => {
             </Button>
             <div className='mx-2 w-[1px] h-3.5 bg-gray-200'></div>
             <Button
-              className='mr-2'
+              className='mr-2 px-3 py-0 h-8 bg-white text-[13px] text-gray-700 font-medium border-[0.5px] border-gray-200 shadow-xs'
               onClick={handleCancelRestore}
             >
               {t('common.operation.cancel')}
             </Button>
             <Button
+              className='px-3 py-0 h-8 text-[13px] font-medium shadow-xs'
               onClick={handleRestore}
-              variant='primary'
+              type='primary'
             >
               {t('workflow.common.restore')}
             </Button>

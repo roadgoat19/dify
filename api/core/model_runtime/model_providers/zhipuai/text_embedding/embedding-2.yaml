@@ -1,4 +1,0 @@
-model: embedding-2
-model_type: text-embedding
-model_properties:
-  context_size: 512

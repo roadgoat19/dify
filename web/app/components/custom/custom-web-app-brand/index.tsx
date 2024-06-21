@@ -1,13 +1,11 @@
 import type { ChangeEvent } from 'react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  RiLoader2Line,
-} from '@remixicon/react'
 import s from './style.module.css'
 import LogoSite from '@/app/components/base/logo/logo-site'
 import Switch from '@/app/components/base/switch'
 import Button from '@/app/components/base/button'
+import { Loading02 } from '@/app/components/base/icons/src/vender/line/general'
 import { MessageDotsCircle } from '@/app/components/base/icons/src/vender/solid/communication'
 import { ImagePlus } from '@/app/components/base/icons/src/vender/line/images'
 import { useProviderContext } from '@/context/provider-context'
@@ -154,7 +152,8 @@ const CustomWebAppBrand = () => {
             !uploading && (
               <Button
                 className={`
-                  relative mr-2
+                  relative mr-2 !h-8 !px-3 bg-white !text-[13px]
+                  ${uploadDisabled ? 'opacity-40' : ''}
                 `}
                 disabled={uploadDisabled}
               >
@@ -181,10 +180,10 @@ const CustomWebAppBrand = () => {
           {
             uploading && (
               <Button
-                className='relative mr-2'
+                className='relative mr-2 !h-8 !px-3 bg-white !text-[13px] opacity-40'
                 disabled={true}
               >
-                <RiLoader2Line className='animate-spin mr-2 w-4 h-4' />
+                <Loading02 className='animate-spin mr-2 w-4 h-4' />
                 {t('custom.uploading')}
               </Button>
             )
@@ -193,15 +192,15 @@ const CustomWebAppBrand = () => {
             fileId && (
               <>
                 <Button
-                  variant='primary'
-                  className='mr-2'
+                  type='primary'
+                  className='mr-2 !h-8 !px-3 !py-0 !text-[13px]'
                   onClick={handleApply}
                   disabled={webappBrandRemoved || !isCurrentWorkspaceManager}
                 >
                   {t('custom.apply')}
                 </Button>
                 <Button
-                  className='mr-2'
+                  className='mr-2 !h-8 !px-3 !text-[13px] bg-white'
                   onClick={handleCancel}
                   disabled={webappBrandRemoved || !isCurrentWorkspaceManager}
                 >
@@ -212,6 +211,10 @@ const CustomWebAppBrand = () => {
           }
           <div className='mr-2 h-5 w-[1px] bg-black/5'></div>
           <Button
+            className={`
+              !h-8 !px-3 bg-white !text-[13px]
+              ${(uploadDisabled || (!webappLogo && !webappBrandRemoved)) ? 'opacity-40' : ''}
+            `}
             disabled={uploadDisabled || (!webappLogo && !webappBrandRemoved)}
             onClick={handleRestore}
           >

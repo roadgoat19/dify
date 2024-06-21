@@ -136,7 +136,6 @@ web/.vscode/settings.json
 # Intellij IDEA Files
 .idea/*
 !.idea/vcs.xml
-!.idea/icon.png
 .ideaDataSources/
 
 api/.env
@@ -150,7 +149,6 @@ docker/volumes/qdrant/*
 docker/volumes/etcd/*
 docker/volumes/minio/*
 docker/volumes/milvus/*
-docker/volumes/chroma/*
 
 sdks/python-client/build
 sdks/python-client/dist

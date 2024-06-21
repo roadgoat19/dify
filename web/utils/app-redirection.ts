@@ -1,9 +1,9 @@
 export const getRedirection = (
-  isCurrentWorkspaceEditor: boolean,
+  isCurrentWorkspaceManager: boolean,
   app: any,
   redirectionFunc: (href: string) => void,
 ) => {
-  if (!isCurrentWorkspaceEditor) {
+  if (!isCurrentWorkspaceManager) {
     redirectionFunc(`/app/${app.id}/overview`)
   }
   else {

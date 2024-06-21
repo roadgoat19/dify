@@ -18,7 +18,6 @@ import { TransferMethod, type VisionFile, type VisionSettings } from '@/types/ap
 import { NodeRunningStatus, WorkflowRunningStatus } from '@/app/components/workflow/types'
 import type { WorkflowProcess } from '@/app/components/base/chat/types'
 import { sleep } from '@/utils'
-import type { SiteInfo } from '@/models/share'
 
 export type IResultProps = {
   isWorkflow: boolean
@@ -43,7 +42,6 @@ export type IResultProps = {
   moderationService?: (text: string) => ReturnType<ModerationService>
   visionConfig: VisionSettings
   completionFiles: VisionFile[]
-  siteInfo: SiteInfo | null
 }
 
 const Result: FC<IResultProps> = ({
@@ -67,7 +65,6 @@ const Result: FC<IResultProps> = ({
   onCompleted,
   visionConfig,
   completionFiles,
-  siteInfo,
 }) => {
   const [isResponding, { setTrue: setRespondingTrue, setFalse: setRespondingFalse }] = useBoolean(false)
   useEffect(() => {
@@ -268,29 +265,18 @@ const Result: FC<IResultProps> = ({
               return
             if (data.error) {
               notify({ type: 'error', message: data.error })
-              setWorkflowProccessData(produce(getWorkflowProccessData()!, (draft) => {
-                draft.status = WorkflowRunningStatus.Failed
-              }))
               setRespondingFalse()
               onCompleted(getCompletionRes(), taskId, false)
               isEnd = true
               return
             }
             setWorkflowProccessData(produce(getWorkflowProccessData()!, (draft) => {
-              draft.status = WorkflowRunningStatus.Succeeded
+              draft.status = data.error ? WorkflowRunningStatus.Failed : WorkflowRunningStatus.Succeeded
             }))
-            if (!data.outputs) {
+            if (!data.outputs)
               setCompletionRes('')
-            }
-            else {
+            else
               setCompletionRes(data.outputs)
-              const isStringOutput = Object.keys(data.outputs).length === 1 && typeof data.outputs[Object.keys(data.outputs)[0]] === 'string'
-              if (isStringOutput) {
-                setWorkflowProccessData(produce(getWorkflowProccessData()!, (draft) => {
-                  draft.resultText = data.outputs[Object.keys(data.outputs)[0]]
-                }))
-              }
-            }
             setRespondingFalse()
             setMessageId(tempMessageId)
             onCompleted(getCompletionRes(), taskId, true)
@@ -378,7 +364,6 @@ const Result: FC<IResultProps> = ({
       controlClearMoreLikeThis={controlClearMoreLikeThis}
       isShowTextToSpeech={isShowTextToSpeech}
       hideProcessDetail
-      siteInfo={siteInfo}
     />
   )
 

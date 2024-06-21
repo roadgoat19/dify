@@ -41,9 +41,10 @@ const ActivateForm = () => {
 
   const [name, setName] = useState('')
   const [password, setPassword] = useState('')
-  const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone)
+  const [timezone, setTimezone] = useState('Asia/Shanghai')
   const [language, setLanguage] = useState(locale)
   const [showSuccess, setShowSuccess] = useState(false)
+  const defaultLanguage = useCallback(() => (window.navigator.language.startsWith('zh') ? LanguagesSupported[1] : LanguagesSupported[0]) || LanguagesSupported[0], [])
 
   const showErrorMessage = useCallback((message: string) => {
     Toast.notify({
@@ -85,7 +86,7 @@ const ActivateForm = () => {
           timezone,
         },
       })
-      setLocaleOnClient(language, false)
+      setLocaleOnClient(language.startsWith('en') ? 'en-US' : 'zh-Hans', false)
       setShowSuccess(true)
     }
     catch {
@@ -109,7 +110,7 @@ const ActivateForm = () => {
             <h2 className="text-[32px] font-bold text-gray-900">{t('login.invalid')}</h2>
           </div>
           <div className="w-full mx-auto mt-6">
-            <Button variant='primary' className='w-full !text-sm'>
+            <Button type='primary' className='w-full !fone-medium !text-sm'>
               <a href="https://dify.ai">{t('login.explore')}</a>
             </Button>
           </div>
@@ -195,8 +196,8 @@ const ActivateForm = () => {
               </div>
               <div>
                 <Button
-                  variant='primary'
-                  className='w-full !text-sm'
+                  type='primary'
+                  className='w-full !fone-medium !text-sm'
                   onClick={handleActivate}
                 >
                   {`${t('login.join')} ${checkRes.workspace_name}`}
@@ -226,7 +227,7 @@ const ActivateForm = () => {
             </h2>
           </div>
           <div className="w-full mx-auto mt-6">
-            <Button variant='primary' className='w-full !text-sm'>
+            <Button type='primary' className='w-full !fone-medium !text-sm'>
               <a href="/signin">{t('login.activated')}</a>
             </Button>
           </div>

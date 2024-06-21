@@ -4,7 +4,6 @@ import {
   useState,
 } from 'react'
 import cn from 'classnames'
-import { RiAddCircleFill } from '@remixicon/react'
 import { useStoreApi } from 'reactflow'
 import { useTranslation } from 'react-i18next'
 import type { OffsetOptions } from '@floating-ui/react'
@@ -20,6 +19,7 @@ import { NODES_INITIAL_DATA } from '../constants'
 import { useWorkflowStore } from '../store'
 import TipPopup from './tip-popup'
 import BlockSelector from '@/app/components/workflow/block-selector'
+import { Plus } from '@/app/components/base/icons/src/vender/line/general'
 import type {
   OnSelectBlock,
 } from '@/app/components/workflow/types'
@@ -82,7 +82,7 @@ const AddBlock = ({
           `${nodesReadOnly && '!cursor-not-allowed opacity-50'}`,
           open && '!bg-black/5',
         )}>
-          <RiAddCircleFill className='w-4 h-4' />
+          <Plus className='w-4 h-4' />
         </div>
       </TipPopup>
     )

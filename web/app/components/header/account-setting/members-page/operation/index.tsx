@@ -36,7 +36,6 @@ const Operation = ({
   const RoleMap = {
     owner: t('common.members.owner'),
     admin: t('common.members.admin'),
-    editor: t('common.members.editor'),
     normal: t('common.members.normal'),
   }
   const { notify } = useContext(ToastContext)
@@ -99,7 +98,7 @@ const Operation = ({
               >
                 <div className="px-1 py-1">
                   {
-                    ['admin', 'editor', 'normal'].map(role => (
+                    ['admin', 'normal'].map(role => (
                       <Menu.Item key={role}>
                         <div className={itemClassName} onClick={() => handleUpdateMemberRole(role)}>
                           {

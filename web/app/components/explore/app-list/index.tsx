@@ -38,7 +38,7 @@ const Apps = ({
   onSuccess,
 }: AppsProps) => {
   const { t } = useTranslation()
-  const { isCurrentWorkspaceEditor } = useAppContext()
+  const { isCurrentWorkspaceManager } = useAppContext()
   const { push } = useRouter()
   const { hasEditPermission } = useContext(ExploreContext)
   const allCategoriesEn = t('explore.apps.allCategories', { lng: 'en' })
@@ -116,7 +116,7 @@ const Apps = ({
       if (onSuccess)
         onSuccess()
       localStorage.setItem(NEED_REFRESH_APP_LIST_KEY, '1')
-      getRedirection(isCurrentWorkspaceEditor, app, push)
+      getRedirection(isCurrentWorkspaceManager, app, push)
     }
     catch (e) {
       Toast.notify({ type: 'error', message: t('app.newApp.appCreateFailed') })

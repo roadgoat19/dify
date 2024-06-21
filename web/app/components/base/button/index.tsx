@@ -1,52 +1,50 @@
-import React from 'react'
-import { type VariantProps, cva } from 'class-variance-authority'
+import type { FC, MouseEventHandler, PropsWithChildren } from 'react'
+import React, { memo } from 'react'
 import classNames from 'classnames'
 import Spinner from '../spinner'
 
-const buttonVariants = cva(
-  'btn disabled:btn-disabled',
-  {
-    variants: {
-      variant: {
-        'primary': 'btn-primary',
-        'warning': 'btn-warning',
-        'secondary': 'btn-secondary',
-        'secondary-accent': 'btn-secondary-accent',
-        'ghost': 'btn-ghost',
-      },
-      size: {
-        small: 'btn-small',
-        medium: 'btn-medium',
-        large: 'btn-large',
-      },
-    },
-    defaultVariants: {
-      variant: 'secondary',
-      size: 'medium',
-    },
-  },
-)
-
-export type ButtonProps = {
+export type IButtonProps = PropsWithChildren<{
+  type?: string
+  className?: string
+  disabled?: boolean
   loading?: boolean
-} & React.ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariants>
+  tabIndex?: number
+  onClick?: MouseEventHandler<HTMLDivElement>
+}>
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, loading, children, ...props }, ref) => {
-    return (
-      <button
-        type='button'
-        className={classNames(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      >
-        {children}
-        <Spinner loading={loading} className='!text-white !h-3 !w-3 !border-2 !ml-1' />
-      </button>
-    )
-  },
-)
-Button.displayName = 'Button'
+const Button: FC<IButtonProps> = ({
+  type,
+  disabled,
+  children,
+  className,
+  onClick,
+  loading = false,
+  tabIndex,
+}) => {
+  let typeClassNames = 'cursor-pointer'
+  switch (type) {
+    case 'primary':
+      typeClassNames = (disabled || loading) ? 'btn-primary-disabled' : 'btn-primary'
+      break
+    case 'warning':
+      typeClassNames = (disabled || loading) ? 'btn-warning-disabled' : 'btn-warning'
+      break
+    default:
+      typeClassNames = disabled ? 'btn-default-disabled' : 'btn-default'
+      break
+  }
 
-export default Button
-export { Button, buttonVariants }
+  return (
+    <div
+      className={classNames('btn', typeClassNames, className)}
+      tabIndex={tabIndex}
+      onClick={disabled ? undefined : onClick}
+    >
+      {children}
+      {/* Spinner is hidden when loading is false */}
+      <Spinner loading={loading} className='!text-white !h-3 !w-3 !border-2 !ml-1' />
+    </div>
+  )
+}
+
+export default memo(Button)

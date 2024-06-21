@@ -5,7 +5,7 @@ const translation = {
     chatbot: 'チャットボット',
     agent: 'エージェント',
     workflow: 'ワークフロー',
-    completion: 'テキスト生成',
+    completion: '完了',
   },
   duplicate: '複製',
   duplicateTitle: 'アプリを複製する',
@@ -84,7 +84,7 @@ const translation = {
     chatbot: 'チャットボット',
     agent: 'エージェント',
     workflow: 'ワークフロー',
-    completion: 'テキスト生成',
+    completion: '完了',
   },
 }
 

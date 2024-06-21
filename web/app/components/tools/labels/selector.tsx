@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { useContext } from 'use-context-selector'
 import { useDebounceFn, useMount } from 'ahooks'
 import cn from 'classnames'
-import { RiArrowDownSLine } from '@remixicon/react'
 import { useStore as useLabelStore } from './store'
 import {
   PortalToFollowElem,
@@ -12,6 +11,7 @@ import {
   PortalToFollowElemTrigger,
 } from '@/app/components/base/portal-to-follow-elem'
 import SearchInput from '@/app/components/base/search-input'
+import { ChevronDown } from '@/app/components/base/icons/src/vender/line/arrows'
 import { Tag03 } from '@/app/components/base/icons/src/vender/line/financeAndECommerce'
 import Checkbox from '@/app/components/base/checkbox'
 import type { Label } from '@/app/components/tools/labels/constant'
@@ -87,7 +87,7 @@ const LabelSelector: FC<LabelSelectorProps> = ({
               {!!value.length && selectedLabels}
             </div>
             <div className='shrink-0 ml-1 text-gray-700 opacity-60'>
-              <RiArrowDownSLine className='h-4 w-4'/>
+              <ChevronDown className='h-4 w-4'/>
             </div>
           </div>
         </PortalToFollowElemTrigger>

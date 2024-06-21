@@ -43,7 +43,7 @@ class MemberInviteEmailApi(Resource):
         invitee_emails = args['emails']
         invitee_role = args['role']
         interface_language = args['language']
-        if not TenantAccountRole.is_non_owner_role(invitee_role):
+        if invitee_role not in [TenantAccountRole.ADMIN, TenantAccountRole.NORMAL]:
             return {'code': 'invalid-role', 'message': 'Invalid role'}, 400
 
         inviter = current_user
@@ -114,7 +114,7 @@ class MemberUpdateRoleApi(Resource):
         args = parser.parse_args()
         new_role = args['role']
 
-        if not TenantAccountRole.is_valid_role(new_role):
+        if new_role not in ['admin', 'normal', 'owner']:
             return {'code': 'invalid-role', 'message': 'Invalid role'}, 400
 
         member = Account.query.get(str(member_id))

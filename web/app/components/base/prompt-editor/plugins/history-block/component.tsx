@@ -1,13 +1,11 @@
 import type { FC } from 'react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  RiMoreFill,
-} from '@remixicon/react'
 import { useSelectOrDelete, useTrigger } from '../../hooks'
 import { UPDATE_HISTORY_EVENT_EMITTER } from '../../constants'
 import type { RoleName } from './index'
 import { DELETE_HISTORY_BLOCK_COMMAND } from './index'
+import { DotsHorizontal } from '@/app/components/base/icons/src/vender/line/general'
 import { MessageClockCircle } from '@/app/components/base/icons/src/vender/solid/general'
 import {
   PortalToFollowElem,
@@ -60,7 +58,7 @@ const HistoryBlockComponent: FC<HistoryBlockComponentProps> = ({
             flex items-center justify-center w-[18px] h-[18px] rounded cursor-pointer
             ${open ? 'bg-[#DD2590] text-white' : 'bg-white/50 group-hover:bg-white group-hover:shadow-xs'}
           `}>
-            <RiMoreFill className='w-3 h-3' />
+            <DotsHorizontal className='w-3 h-3' />
           </div>
         </PortalToFollowElemTrigger>
         <PortalToFollowElemContent style={{ zIndex: 100 }}>

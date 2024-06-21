@@ -1,7 +1,5 @@
-import {
-  RiExternalLinkLine,
-} from '@remixicon/react'
 import { CubeOutline } from '@/app/components/base/icons/src/vender/line/shapes'
+import { LinkExternal01 } from '@/app/components/base/icons/src/vender/line/general'
 
 const ModelTrigger = () => {
   return (
@@ -18,7 +16,7 @@ const ModelTrigger = () => {
         </div>
       </div>
       <div className='shrink-0 flex items-center justify-center w-4 h-4'>
-        <RiExternalLinkLine className='w-3.5 h-3.5 text-gray-500' />
+        <LinkExternal01 className='w-3.5 h-3.5 text-gray-500' />
       </div>
     </div>
   )

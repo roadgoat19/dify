@@ -5,9 +5,6 @@ import Link from 'next/link'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import cn from 'classnames'
-import {
-  RiMoreFill,
-} from '@remixicon/react'
 import Confirm from '@/app/components/base/confirm'
 import { ToastContext } from '@/app/components/base/toast'
 import { deleteDataset } from '@/service/datasets'
@@ -17,6 +14,7 @@ import { Folder } from '@/app/components/base/icons/src/vender/solid/files'
 import type { HtmlContentProps } from '@/app/components/base/popover'
 import CustomPopover from '@/app/components/base/popover'
 import Divider from '@/app/components/base/divider'
+import { DotsHorizontal } from '@/app/components/base/icons/src/vender/line/general'
 import RenameDatasetModal from '@/app/components/datasets/rename-modal'
 import type { Tag } from '@/app/components/base/tag-management/constant'
 import TagSelector from '@/app/components/base/tag-management/selector'
@@ -169,7 +167,7 @@ const DatasetCard = ({
                 <div
                   className='flex items-center justify-center w-8 h-8 cursor-pointer rounded-md'
                 >
-                  <RiMoreFill className='w-4 h-4 text-gray-700' />
+                  <DotsHorizontal className='w-4 h-4 text-gray-700' />
                 </div>
               }
               btnClassName={open =>

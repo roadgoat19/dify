@@ -17,7 +17,7 @@ class PromptMessageFileType(enum.Enum):
 
 class PromptMessageFile(BaseModel):
     type: PromptMessageFileType
-    data: Any = None
+    data: Any
 
 
 class ImagePromptMessageFile(PromptMessageFile):

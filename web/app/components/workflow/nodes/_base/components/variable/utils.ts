@@ -344,6 +344,8 @@ export const getVarType = ({
     }
     if (valueSelector[1] === 'index')
       return VarType.number
+
+    return VarType.string
   }
   const isSystem = isSystemVar(valueSelector)
   const startNode = availableNodes.find((node: any) => {

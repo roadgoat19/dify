@@ -106,9 +106,6 @@ class Account(UserMixin, db.Model):
     def is_admin_or_owner(self):
         return TenantAccountRole.is_privileged_role(self._current_tenant.current_role)
 
-    @property
-    def is_editor(self):
-        return TenantAccountRole.is_editing_role(self._current_tenant.current_role)
 
 class TenantStatus(str, enum.Enum):
     NORMAL = 'normal'
@@ -118,24 +115,11 @@ class TenantStatus(str, enum.Enum):
 class TenantAccountRole(str, enum.Enum):
     OWNER = 'owner'
     ADMIN = 'admin'
-    EDITOR = 'editor'
     NORMAL = 'normal'
 
     @staticmethod
-    def is_valid_role(role: str) -> bool:
-        return role and role in {TenantAccountRole.OWNER, TenantAccountRole.ADMIN, TenantAccountRole.EDITOR, TenantAccountRole.NORMAL}
-
-    @staticmethod
     def is_privileged_role(role: str) -> bool:
-        return role and role in {TenantAccountRole.OWNER, TenantAccountRole.ADMIN}
-    
-    @staticmethod
-    def is_non_owner_role(role: str) -> bool:
-        return role and role in {TenantAccountRole.ADMIN, TenantAccountRole.EDITOR, TenantAccountRole.NORMAL}
-    
-    @staticmethod
-    def is_editing_role(role: str) -> bool:
-        return role and role in {TenantAccountRole.OWNER, TenantAccountRole.ADMIN, TenantAccountRole.EDITOR}
+        return role and role in {TenantAccountRole.ADMIN, TenantAccountRole.OWNER}
 
 
 class Tenant(db.Model):

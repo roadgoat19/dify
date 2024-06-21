@@ -40,8 +40,7 @@ const TryToAsk: FC<TryToAskProps> = ({
           suggestedQuestions.map((suggestQuestion, index) => (
             <Button
               key={index}
-              variant='secondary-accent'
-              className='mb-2 mr-2 last:mr-0'
+              className='mb-2 mr-2 last:mr-0 px-3 py-[5px] bg-white text-primary-600 text-xs font-medium'
               onClick={() => onSend(suggestQuestion)}
             >
               {suggestQuestion}

@@ -52,21 +52,16 @@ class JinaTextEmbeddingModel(TextEmbeddingModel):
             'Content-Type': 'application/json'
         }
 
-        def transform_jina_input_text(model, text):
-            if model == 'jina-clip-v1':
-                return {"text": text}
-            return text
-
         data = {
             'model': model,
-            'input': [transform_jina_input_text(model, text) for text in texts]
+            'input': texts
         }
 
         try:
             response = post(url, headers=headers, data=dumps(data))
         except Exception as e:
             raise InvokeConnectionError(str(e))
-
+        
         if response.status_code != 200:
             try:
                 resp = response.json()
@@ -80,19 +75,16 @@ class JinaTextEmbeddingModel(TextEmbeddingModel):
                 else:
                     raise InvokeBadRequestError(msg)
             except JSONDecodeError as e:
-                raise InvokeServerUnavailableError(
-                    f"Failed to convert response to json: {e} with text: {response.text}")
+                raise InvokeServerUnavailableError(f"Failed to convert response to json: {e} with text: {response.text}")
 
         try:
             resp = response.json()
             embeddings = resp['data']
             usage = resp['usage']
         except Exception as e:
-            raise InvokeServerUnavailableError(
-                f"Failed to convert response to json: {e} with text: {response.text}")
+            raise InvokeServerUnavailableError(f"Failed to convert response to json: {e} with text: {response.text}")
 
-        usage = self._calc_response_usage(
-            model=model, credentials=credentials, tokens=usage['total_tokens'])
+        usage = self._calc_response_usage(model=model, credentials=credentials, tokens=usage['total_tokens'])
 
         result = TextEmbeddingResult(
             model=model,
@@ -130,8 +122,7 @@ class JinaTextEmbeddingModel(TextEmbeddingModel):
         try:
             self._invoke(model=model, credentials=credentials, texts=['ping'])
         except Exception as e:
-            raise CredentialsValidateFailedError(
-                f'Credentials validation failed: {e}')
+            raise CredentialsValidateFailedError(f'Credentials validation failed: {e}')
 
     @property
     def _invoke_error_mapping(self) -> dict[type[InvokeError], list[type[Exception]]]:
@@ -153,7 +144,7 @@ class JinaTextEmbeddingModel(TextEmbeddingModel):
                 InvokeBadRequestError
             ]
         }
-
+    
     def _calc_response_usage(self, model: str, credentials: dict, tokens: int) -> EmbeddingUsage:
         """
         Calculate response usage
@@ -194,8 +185,7 @@ class JinaTextEmbeddingModel(TextEmbeddingModel):
             model_type=ModelType.TEXT_EMBEDDING,
             fetch_from=FetchFrom.CUSTOMIZABLE_MODEL,
             model_properties={
-                ModelPropertyKey.CONTEXT_SIZE: int(
-                    credentials.get('context_size'))
+                ModelPropertyKey.CONTEXT_SIZE: int(credentials.get('context_size'))
             }
         )
 

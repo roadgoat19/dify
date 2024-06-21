@@ -57,13 +57,11 @@ export const useWorkflowUpdate = () => {
     const {
       appId,
       setSyncWorkflowDraftHash,
-      setIsSyncingWorkflowDraft,
     } = workflowStore.getState()
-    setIsSyncingWorkflowDraft(true)
     fetchWorkflowDraft(`/apps/${appId}/workflows/draft`).then((response) => {
       handleUpdateWorkflowCanvas(response.graph as WorkflowDataUpdator)
       setSyncWorkflowDraftHash(response.hash)
-    }).finally(() => setIsSyncingWorkflowDraft(false))
+    })
   }, [handleUpdateWorkflowCanvas, workflowStore])
 
   return {

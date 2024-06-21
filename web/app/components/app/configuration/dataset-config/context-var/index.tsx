@@ -3,13 +3,11 @@ import type { FC } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import cn from 'classnames'
-import {
-  RiQuestionLine,
-} from '@remixicon/react'
 import type { Props } from './var-picker'
 import VarPicker from './var-picker'
 import { BracketsX } from '@/app/components/base/icons/src/vender/line/development'
 import Tooltip from '@/app/components/base/tooltip'
+import { HelpCircle } from '@/app/components/base/icons/src/vender/line/general'
 
 const ContextVar: FC<Props> = (props) => {
   const { t } = useTranslation()
@@ -29,7 +27,7 @@ const ContextVar: FC<Props> = (props) => {
           </div>}
           selector='context-var-tooltip'
         >
-          <RiQuestionLine className='w-3.5 h-3.5 text-gray-400'/>
+          <HelpCircle className='w-3.5 h-3.5 text-gray-400'/>
         </Tooltip>
       </div>
 

@@ -1,9 +1,6 @@
 import type { FC } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  RiQuestionLine,
-} from '@remixicon/react'
 import { CodeLanguage } from '../code/types'
 import useConfig from './use-config'
 import type { TemplateTransformNodeType } from './types'
@@ -13,6 +10,7 @@ import Field from '@/app/components/workflow/nodes/_base/components/field'
 import Split from '@/app/components/workflow/nodes/_base/components/split'
 import CodeEditor from '@/app/components/workflow/nodes/_base/components/editor/code-editor/editor-support-vars'
 import OutputVars, { VarItem } from '@/app/components/workflow/nodes/_base/components/output-vars'
+import { HelpCircle } from '@/app/components/base/icons/src/vender/line/general'
 import type { NodePanelProps } from '@/app/components/workflow/types'
 import BeforeRunForm from '@/app/components/workflow/nodes/_base/components/before-run-form'
 import ResultPanel from '@/app/components/workflow/run/result-panel'
@@ -84,7 +82,7 @@ const Panel: FC<NodePanelProps<TemplateTransformNodeType>> = ({
                 href="https://jinja.palletsprojects.com/en/3.1.x/templates/"
                 target='_blank'>
                 <span>{t(`${i18nPrefix}.codeSupportTip`)}</span>
-                <RiQuestionLine className='w-3 h-3' />
+                <HelpCircle className='w-3 h-3' />
               </a>
               <div className='mx-1.5 w-px h-3 bg-gray-200'></div>
             </div>

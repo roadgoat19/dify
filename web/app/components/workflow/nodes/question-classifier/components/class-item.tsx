@@ -2,11 +2,9 @@
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  RiDeleteBinLine,
-} from '@remixicon/react'
 import type { Topic } from '../types'
 import TextEditor from '../../_base/components/editor/text-editor'
+import { Trash03 } from '@/app/components/base/icons/src/vender/line/general'
 
 const i18nPrefix = 'workflow.nodes.questionClassifiers'
 
@@ -51,7 +49,7 @@ const ClassItem: FC<Props> = ({
           <div className='text-xs font-medium text-gray-500'>{payload.name.length}</div>
           <div className='mx-3 h-3 w-px bg-gray-200'></div>
           {!readonly && (
-            <RiDeleteBinLine
+            <Trash03
               className='mr-1 w-3.5 h-3.5 text-gray-500 cursor-pointer'
               onClick={onRemove}
             />

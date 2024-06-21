@@ -132,6 +132,7 @@ const ConfigModal: FC<IConfigModalProps> = ({
       title={t(`appDebug.variableConig.${isCreate ? 'addModalTitle' : 'editModalTitle'}`)}
       isShow={isShow}
       onClose={onClose}
+      wrapperClassName='!z-[100]'
     >
       <div className='mb-8'>
         <div className='space-y-2'>

@@ -17,10 +17,6 @@ class CotAgentOutputParser:
                 action_name = None
                 action_input = None
 
-                # cohere always returns a list
-                if isinstance(action, list) and len(action) == 1:
-                    action = action[0]
-
                 for key, value in action.items():
                     if 'input' in key.lower():
                         action_input = value

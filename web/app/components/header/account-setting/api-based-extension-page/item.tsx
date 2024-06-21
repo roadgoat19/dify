@@ -1,10 +1,7 @@
 import type { FC } from 'react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  RiDeleteBinLine,
-} from '@remixicon/react'
-import { Edit02 } from '@/app/components/base/icons/src/vender/line/general'
+import { Edit02, Trash03 } from '@/app/components/base/icons/src/vender/line/general'
 import type { ApiBasedExtension } from '@/models/common'
 import { useModalContext } from '@/context/modal-context'
 import { deleteApiBasedExtension } from '@/service/common'
@@ -53,7 +50,7 @@ const Item: FC<ItemProps> = ({
           className='flex items-center justify-center w-7 h-7 bg-white text-gray-700 rounded-md border-[0.5px] border-gray-200 shadow-xs cursor-pointer'
           onClick={() => setShowDeleteConfirm(true)}
         >
-          <RiDeleteBinLine className='w-4 h-4' />
+          <Trash03 className='w-4 h-4' />
         </div>
       </div>
       {

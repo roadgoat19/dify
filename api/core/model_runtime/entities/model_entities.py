@@ -2,7 +2,7 @@ from decimal import Decimal
 from enum import Enum
 from typing import Any, Optional
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel
 
 from core.model_runtime.entities.common_entities import I18nObject
 
@@ -148,7 +148,9 @@ class ProviderModel(BaseModel):
     fetch_from: FetchFrom
     model_properties: dict[ModelPropertyKey, Any]
     deprecated: bool = False
-    model_config = ConfigDict(protected_namespaces=())
+
+    class Config:
+        protected_namespaces = ()
 
 
 class ParameterRule(BaseModel):

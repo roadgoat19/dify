@@ -47,14 +47,7 @@ export const useChatWithHistory = (installedAppInfo?: InstalledApp) => {
       const { id, app } = installedAppInfo!
       return {
         app_id: id,
-        site: {
-          title: app.name,
-          icon: app.icon,
-          icon_background: app.icon_background,
-          prompt_public: false,
-          copyright: '',
-          show_workflow_steps: true,
-        },
+        site: { title: app.name, icon: app.icon, icon_background: app.icon_background, prompt_public: false, copyright: '' },
         plan: 'basic',
       } as AppData
     }

@@ -3,10 +3,8 @@ import type { FC } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import cn from 'classnames'
-import {
-  RiQuestionLine,
-} from '@remixicon/react'
 import Tooltip from '../../base/tooltip'
+import { HelpCircle } from '../../base/icons/src/vender/line/general'
 import type { Credential } from '@/app/components/tools/types'
 import Drawer from '@/app/components/base/drawer-plus'
 import Button from '@/app/components/base/button'
@@ -119,7 +117,7 @@ const ConfigCredential: FC<Props> = ({
                         </div>
                       }
                     >
-                      <RiQuestionLine className='ml-0.5 w-[14px] h-[14px] text-gray-400' />
+                      <HelpCircle className='ml-0.5 w-[14px] h-[14px] text-gray-400'/>
                     </Tooltip>
                   </div>
                   <input
@@ -143,8 +141,8 @@ const ConfigCredential: FC<Props> = ({
           </div>
 
           <div className='mt-4 shrink-0 flex justify-end space-x-2 py-4'>
-            <Button onClick={onHide}>{t('common.operation.cancel')}</Button>
-            <Button variant='primary' onClick={() => {
+            <Button className='flex items-center h-8 !px-3 !text-[13px] font-medium !text-gray-700' onClick={onHide}>{t('common.operation.cancel')}</Button>
+            <Button className='flex items-center h-8 !px-3 !text-[13px] font-medium' type='primary' onClick={() => {
               onChange(tempCredential)
               onHide()
             }}>{t('common.operation.save')}</Button>

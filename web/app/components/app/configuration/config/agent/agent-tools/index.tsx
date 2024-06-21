@@ -5,17 +5,13 @@ import { useTranslation } from 'react-i18next'
 import cn from 'classnames'
 import { useContext } from 'use-context-selector'
 import produce from 'immer'
-import {
-  RiDeleteBinLine,
-  RiHammerFill,
-  RiQuestionLine,
-} from '@remixicon/react'
 import { useFormattingChangedDispatcher } from '../../../debug/hooks'
 import SettingBuiltInTool from './setting-built-in-tool'
 import Panel from '@/app/components/app/configuration/base/feature-panel'
 import Tooltip from '@/app/components/base/tooltip'
-import { InfoCircle } from '@/app/components/base/icons/src/vender/line/general'
+import { HelpCircle, InfoCircle, Trash03 } from '@/app/components/base/icons/src/vender/line/general'
 import OperationBtn from '@/app/components/app/configuration/base/operation-btn'
+import { ToolsActive } from '@/app/components/base/icons/src/public/header-nav/tools'
 import AppIcon from '@/app/components/base/app-icon'
 import Switch from '@/app/components/base/switch'
 import ConfigContext from '@/context/debug-configuration'
@@ -63,7 +59,7 @@ const AgentTools: FC = () => {
         className="mt-4"
         noBodySpacing={tools.length === 0}
         headerIcon={
-          <RiHammerFill className='w-4 h-4 text-primary-500' />
+          <ToolsActive className='w-4 h-4 text-primary-500' />
         }
         title={
           <div className='flex items-center'>
@@ -71,7 +67,7 @@ const AgentTools: FC = () => {
             <Tooltip htmlContent={<div className='w-[180px]'>
               {t('appDebug.agent.tools.description')}
             </div>} selector='config-tools-tooltip'>
-              <RiQuestionLine className='w-[14px] h-[14px] text-gray-400' />
+              <HelpCircle className='w-[14px] h-[14px] text-gray-400' />
             </Tooltip>
           </div>
         }
@@ -148,7 +144,7 @@ const AgentTools: FC = () => {
                         setModelConfig(newModelConfig)
                         formattingChangedDispatcher()
                       }}>
-                        <RiDeleteBinLine className='w-4 h-4 text-gray-500' />
+                        <Trash03 className='w-4 h-4 text-gray-500' />
                       </div>
                       <div className='ml-2 mr-3 w-px h-3.5 bg-gray-200'></div>
                     </div>
@@ -173,7 +169,7 @@ const AgentTools: FC = () => {
                         setModelConfig(newModelConfig)
                         formattingChangedDispatcher()
                       }}>
-                        <RiDeleteBinLine className='w-4 h-4 text-gray-500' />
+                        <Trash03 className='w-4 h-4 text-gray-500' />
                       </div>
                       <div className='ml-2 mr-3 w-px h-3.5 bg-gray-200'></div>
                     </div>

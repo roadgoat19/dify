@@ -1,7 +1,6 @@
 import type { FC } from 'react'
 import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { RiArrowDownSLine } from '@remixicon/react'
 import type { ModelAndParameter } from '../types'
 import { useDebugWithMultipleModelContext } from './context'
 import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
@@ -12,6 +11,7 @@ import {
   ModelStatusEnum,
 } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import { useDebugConfigurationContext } from '@/context/debug-configuration'
+import { ChevronDown } from '@/app/components/base/icons/src/vender/line/arrows'
 import { CubeOutline } from '@/app/components/base/icons/src/vender/line/shapes'
 import TooltipPlus from '@/app/components/base/tooltip-plus'
 import { AlertTriangle } from '@/app/components/base/icons/src/vender/line/alertsAndFeedback'
@@ -108,7 +108,7 @@ const ModelParameterTrigger: FC<ModelParameterTriggerProps> = ({
               </div>
             )
           }
-          <RiArrowDownSLine className={`w-3 h-3 ${(currentModel && currentProvider) ? 'text-gray-800' : 'text-primary-600'}`} />
+          <ChevronDown className={`w-3 h-3 ${(currentModel && currentProvider) ? 'text-gray-800' : 'text-primary-600'}`} />
           {
             currentModel && currentModel.status !== ModelStatusEnum.active && (
               <TooltipPlus popupContent={MODEL_STATUS_TEXT[currentModel.status][language]}>

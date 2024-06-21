@@ -46,8 +46,6 @@ import {
 } from './hooks'
 import Header from './header'
 import CustomNode from './nodes'
-import CustomNoteNode from './note-node'
-import { CUSTOM_NOTE_NODE } from './note-node/constants'
 import Operator from './operator'
 import CustomEdge from './custom-edge'
 import CustomConnectionLine from './custom-connection-line'
@@ -57,7 +55,6 @@ import HelpLine from './help-line'
 import CandidateNode from './candidate-node'
 import PanelContextmenu from './panel-contextmenu'
 import NodeContextmenu from './node-contextmenu'
-import SyncingDataModal from './syncing-data-modal'
 import {
   useStore,
   useWorkflowStore,
@@ -66,10 +63,8 @@ import {
   getKeyboardKeyCodeBySystem,
   initialEdges,
   initialNodes,
-  isEventTargetInputArea,
 } from './utils'
 import {
-  CUSTOM_NODE,
   ITERATION_CHILDREN_Z_INDEX,
   WORKFLOW_DATA_UPDATE,
 } from './constants'
@@ -80,11 +75,10 @@ import { useEventEmitterContextContext } from '@/context/event-emitter'
 import Confirm from '@/app/components/base/confirm/common'
 
 const nodeTypes = {
-  [CUSTOM_NODE]: CustomNode,
-  [CUSTOM_NOTE_NODE]: CustomNoteNode,
+  custom: CustomNode,
 }
 const edgeTypes = {
-  [CUSTOM_NODE]: CustomEdge,
+  custom: CustomEdge,
 }
 
 type WorkflowProps = {
@@ -105,10 +99,7 @@ const Workflow: FC<WorkflowProps> = memo(({
   const controlMode = useStore(s => s.controlMode)
   const nodeAnimation = useStore(s => s.nodeAnimation)
   const showConfirm = useStore(s => s.showConfirm)
-  const {
-    setShowConfirm,
-    setControlPromptEditorRerenderKey,
-  } = workflowStore.getState()
+  const { setShowConfirm } = workflowStore.getState()
   const {
     handleSyncWorkflowDraft,
     syncWorkflowDraftWhenPageClose,
@@ -122,7 +113,6 @@ const Workflow: FC<WorkflowProps> = memo(({
     if (v.type === WORKFLOW_DATA_UPDATE) {
       setNodes(v.payload.nodes)
       setEdges(v.payload.edges)
-      setTimeout(() => setControlPromptEditorRerenderKey(Date.now()))
     }
   })
 
@@ -145,7 +135,7 @@ const Workflow: FC<WorkflowProps> = memo(({
     if (document.visibilityState === 'hidden')
       syncWorkflowDraftWhenPageClose()
     else if (document.visibilityState === 'visible')
-      setTimeout(() => handleRefreshWorkflowDraft(), 500)
+      handleRefreshWorkflowDraft()
   }, [syncWorkflowDraftWhenPageClose, handleRefreshWorkflowDraft])
 
   useEffect(() => {
@@ -218,18 +208,8 @@ const Workflow: FC<WorkflowProps> = memo(({
 
   useKeyPress('delete', handleNodesDelete)
   useKeyPress(['delete', 'backspace'], handleEdgeDelete)
-  useKeyPress(`${getKeyboardKeyCodeBySystem('ctrl')}.c`, (e) => {
-    if (isEventTargetInputArea(e.target as HTMLElement))
-      return
-
-    handleNodesCopy()
-  }, { exactMatch: true, useCapture: true })
-  useKeyPress(`${getKeyboardKeyCodeBySystem('ctrl')}.v`, (e) => {
-    if (isEventTargetInputArea(e.target as HTMLElement))
-      return
-
-    handleNodesPaste()
-  }, { exactMatch: true, useCapture: true })
+  useKeyPress(`${getKeyboardKeyCodeBySystem('ctrl')}.c`, handleNodesCopy, { exactMatch: true, useCapture: true })
+  useKeyPress(`${getKeyboardKeyCodeBySystem('ctrl')}.v`, handleNodesPaste, { exactMatch: true, useCapture: true })
   useKeyPress(`${getKeyboardKeyCodeBySystem('ctrl')}.d`, handleNodesDuplicate, { exactMatch: true, useCapture: true })
   useKeyPress(`${getKeyboardKeyCodeBySystem('alt')}.r`, handleStartWorkflowRun, { exactMatch: true, useCapture: true })
 
@@ -243,7 +223,6 @@ const Workflow: FC<WorkflowProps> = memo(({
       `}
       ref={workflowContainerRef}
     >
-      <SyncingDataModal />
       <CandidateNode />
       <Header />
       <Panel />

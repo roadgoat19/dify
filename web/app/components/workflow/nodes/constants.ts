@@ -64,5 +64,3 @@ export const PanelComponentMap: Record<string, ComponentType<any>> = {
   [BlockEnum.ParameterExtractor]: ParameterExtractorPanel,
   [BlockEnum.Iteration]: IterationPanel,
 }
-
-export const CUSTOM_NODE_TYPE = 'custom'

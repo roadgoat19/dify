@@ -1,8 +1,6 @@
 import type { FC } from 'react'
 import { useState } from 'react'
-import {
-  RiMoreFill,
-} from '@remixicon/react'
+import { DotsHorizontal } from '@/app/components/base/icons/src/vender/line/general'
 import {
   PortalToFollowElem,
   PortalToFollowElemContent,
@@ -51,7 +49,7 @@ const Dropdown: FC<DropdownProps> = ({
                   ${open && 'bg-black/5'}
                 `}
               >
-                <RiMoreFill className='w-4 h-4 text-gray-500' />
+                <DotsHorizontal className='w-4 h-4 text-gray-500' />
               </div>
             )
         }

@@ -2,14 +2,12 @@
 import type { FC } from 'react'
 import { useState } from 'react'
 import cn from 'classnames'
-import {
-  RiCheckboxCircleLine,
-  RiErrorWarningLine,
-} from '@remixicon/react'
 import { useContext } from 'use-context-selector'
 import BlockIcon from '@/app/components/workflow/block-icon'
 import CodeEditor from '@/app/components/workflow/nodes/_base/components/editor/code-editor'
 import { CodeLanguage } from '@/app/components/workflow/nodes/code/types'
+import { AlertCircle } from '@/app/components/base/icons/src/vender/line/alertsAndFeedback'
+import { CheckCircle } from '@/app/components/base/icons/src/vender/line/general'
 import { ChevronRight } from '@/app/components/base/icons/src/vender/line/arrows'
 import type { ToolCall } from '@/models/log'
 import { BlockEnum } from '@/app/components/workflow/types'
@@ -75,10 +73,10 @@ const ToolCallItem: FC<Props> = ({ toolCall, isLLM = false, isFinal, tokens, obs
             )}
           </div>
           {toolCall.status === 'success' && (
-            <RiCheckboxCircleLine className='shrink-0 ml-2 w-3.5 h-3.5 text-[#12B76A]' />
+            <CheckCircle className='shrink-0 ml-2 w-3.5 h-3.5 text-[#12B76A]' />
           )}
           {toolCall.status === 'error' && (
-            <RiErrorWarningLine className='shrink-0 ml-2 w-3.5 h-3.5 text-[#F04438]' />
+            <AlertCircle className='shrink-0 ml-2 w-3.5 h-3.5 text-[#F04438]' />
           )}
         </div>
         {!collapseState && (

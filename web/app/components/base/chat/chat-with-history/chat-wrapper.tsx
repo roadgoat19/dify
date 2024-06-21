@@ -29,7 +29,6 @@ const ChatWrapper = () => {
     appMeta,
     handleFeedback,
     currentChatInstanceRef,
-    appData,
   } = useChatWithHistoryContext()
   const appConfig = useMemo(() => {
     const config = appParams || {}
@@ -129,7 +128,6 @@ const ChatWrapper = () => {
 
   return (
     <Chat
-      appData={appData}
       config={appConfig}
       chatList={chatList}
       isResponding={isResponding}

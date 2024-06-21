@@ -3,14 +3,11 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams, useRouter } from 'next/navigation'
-import {
-  RiBook2Fill,
-  RiBook2Line,
-} from '@remixicon/react'
 import useSWR from 'swr'
 import useSWRInfinite from 'swr/infinite'
 import { flatten } from 'lodash-es'
 import Nav from '../nav'
+import { Knowledge, KnowledgeActive } from '../../base/icons/src/public/header-nav/knowledge'
 import { fetchDatasetDetail, fetchDatasets } from '@/service/datasets'
 import type { DataSetListResponse } from '@/models/datasets'
 
@@ -41,8 +38,8 @@ const DatasetNav = () => {
 
   return (
     <Nav
-      icon={<RiBook2Line className='w-4 h-4' />}
-      activeIcon={<RiBook2Fill className='w-4 h-4' />}
+      icon={<Knowledge className='w-4 h-4' />}
+      activeIcon={<KnowledgeActive className='w-4 h-4' />}
       text={t('common.menus.datasets')}
       activeSegment='datasets'
       link='/datasets'

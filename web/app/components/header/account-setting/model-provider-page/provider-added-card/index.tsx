@@ -1,9 +1,6 @@
 import type { FC } from 'react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  RiLoader2Line,
-} from '@remixicon/react'
 import type {
   CustomConfigurationModelFixedFields,
   ModelItem,
@@ -22,6 +19,7 @@ import QuotaPanel from './quota-panel'
 import ModelList from './model-list'
 import AddModelButton from './add-model-button'
 import { ChevronDownDouble } from '@/app/components/base/icons/src/vender/line/arrows'
+import { Loading02 } from '@/app/components/base/icons/src/vender/line/general'
 import { fetchModelProviderModelList } from '@/service/common'
 import { useEventEmitterContextContext } from '@/context/event-emitter'
 import { IS_CE_EDITION } from '@/config'
@@ -133,7 +131,7 @@ const ProviderAddedCard: FC<ProviderAddedCardProps> = ({
               }
               {
                 loading && (
-                  <RiLoader2Line className='ml-0.5 animate-spin w-3 h-3' />
+                  <Loading02 className='ml-0.5 animate-spin w-3 h-3' />
                 )
               }
             </div>

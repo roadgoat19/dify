@@ -73,8 +73,7 @@ const CredentialPanel: FC<CredentialPanelProps> = ({
             </div>
             <div className='flex items-center gap-0.5'>
               <Button
-                className='grow'
-                size='small'
+                className='grow px-0 h-6 bg-white text-xs font-medium rounded-md'
                 onClick={onSetup}
               >
                 <Settings01 className='mr-1 w-3 h-3' />

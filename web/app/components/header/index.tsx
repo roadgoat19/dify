@@ -26,7 +26,7 @@ const navClassName = `
 `
 
 const Header = () => {
-  const { isCurrentWorkspaceEditor } = useAppContext()
+  const { isCurrentWorkspaceManager } = useAppContext()
 
   const selectedSegment = useSelectedLayoutSegment()
   const media = useBreakpoints()
@@ -74,7 +74,7 @@ const Header = () => {
         <div className='flex items-center'>
           <ExploreNav className={navClassName} />
           <AppNav />
-          {isCurrentWorkspaceEditor && <DatasetNav />}
+          {isCurrentWorkspaceManager && <DatasetNav />}
           <ToolsNav className={navClassName} />
         </div>
       )}
@@ -93,7 +93,7 @@ const Header = () => {
         <div className='w-full flex flex-col p-2 gap-y-1'>
           <ExploreNav className={navClassName} />
           <AppNav />
-          {isCurrentWorkspaceEditor && <DatasetNav />}
+          {isCurrentWorkspaceManager && <DatasetNav />}
           <ToolsNav className={navClassName} />
         </div>
       )}

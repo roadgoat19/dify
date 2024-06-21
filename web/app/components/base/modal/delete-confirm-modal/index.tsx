@@ -2,12 +2,10 @@
 import type { FC } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  RiErrorWarningFill,
-} from '@remixicon/react'
 import s from './style.module.css'
 import Modal from '@/app/components/base/modal'
 import Button from '@/app/components/base/button'
+import { AlertCircle } from '@/app/components/base/icons/src/vender/solid/alertsAndFeedback'
 
 type Props = {
   isShow: boolean
@@ -41,7 +39,7 @@ const DeleteConfirmModal: FC<Props> = ({
         e.nativeEvent.stopImmediatePropagation()
       }}>
         <div className={s.warningWrapper}>
-          <RiErrorWarningFill className='w-6 h-6 text-red-600' />
+          <AlertCircle className='w-6 h-6 text-red-600' />
         </div>
         {text
           ? (
@@ -52,9 +50,9 @@ const DeleteConfirmModal: FC<Props> = ({
         <div className='flex gap-2 justify-end'>
           <Button onClick={onHide}>{t('common.operation.cancel')}</Button>
           <Button
-            variant='warning'
+            type='warning'
             onClick={onRemove}
-            className='border-red-700'
+            className='border-red-700 border-[0.5px]'
           >
             {t('common.operation.sure')}
           </Button>

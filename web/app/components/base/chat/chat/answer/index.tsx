@@ -20,7 +20,6 @@ import LoadingAnim from '@/app/components/app/chat/loading-anim'
 import Citation from '@/app/components/app/chat/citation'
 import { EditTitle } from '@/app/components/app/annotation/edit-annotation-modal/edit-item'
 import type { Emoji } from '@/app/components/tools/types'
-import type { AppData } from '@/models/share'
 
 type AnswerProps = {
   item: ChatItem
@@ -33,7 +32,6 @@ type AnswerProps = {
   showPromptLog?: boolean
   chatAnswerContainerInner?: string
   hideProcessDetail?: boolean
-  appData?: AppData
 }
 const Answer: FC<AnswerProps> = ({
   item,
@@ -46,7 +44,6 @@ const Answer: FC<AnswerProps> = ({
   showPromptLog,
   chatAnswerContainerInner,
   hideProcessDetail,
-  appData,
 }) => {
   const { t } = useTranslation()
   const {
@@ -132,20 +129,8 @@ const Answer: FC<AnswerProps> = ({
                 />
               )
             }
-            {/** Render the normal steps */}
             {
-              workflowProcess && !hideProcessDetail && (
-                <WorkflowProcess
-                  data={workflowProcess}
-                  item={item}
-                  hideInfo
-                  hideProcessDetail={hideProcessDetail}
-                />
-              )
-            }
-            {/** Hide workflow steps by it's settings in siteInfo */}
-            {
-              workflowProcess && hideProcessDetail && appData && appData.site.show_workflow_steps && (
+              workflowProcess && (
                 <WorkflowProcess
                   data={workflowProcess}
                   item={item}

@@ -1,5 +1,4 @@
 import type { FC } from 'react'
-import { RiArrowDownSLine } from '@remixicon/react'
 import type {
   Model,
   ModelItem,
@@ -12,6 +11,7 @@ import { useLanguage } from '../hooks'
 import ModelIcon from '../model-icon'
 import ModelName from '../model-name'
 import { AlertTriangle } from '@/app/components/base/icons/src/vender/line/alertsAndFeedback'
+import { ChevronDown } from '@/app/components/base/icons/src/vender/line/arrows'
 import TooltipPlus from '@/app/components/base/tooltip-plus'
 
 type ModelTriggerProps = {
@@ -61,7 +61,7 @@ const ModelTrigger: FC<ModelTriggerProps> = ({
                 </TooltipPlus>
               )
               : (
-                <RiArrowDownSLine
+                <ChevronDown
                   className='w-3.5 h-3.5 text-gray-500'
                 />
               )

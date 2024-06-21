@@ -6,10 +6,6 @@ import {
   useState,
 } from 'react'
 import cn from 'classnames'
-import {
-  RiClipboardLine,
-  RiCloseLine,
-} from '@remixicon/react'
 import { useTranslation } from 'react-i18next'
 import copy from 'copy-to-clipboard'
 import { useBoolean } from 'ahooks'
@@ -28,6 +24,8 @@ import Toast from '../../base/toast'
 import IterationResultPanel from '../run/iteration-result-panel'
 import InputsPanel from './inputs-panel'
 import Loading from '@/app/components/base/loading'
+import { XClose } from '@/app/components/base/icons/src/vender/line/general'
+import { Clipboard } from '@/app/components/base/icons/src/vender/line/files'
 import type { NodeTracing } from '@/types/workflow'
 
 const WorkflowPreview = ({
@@ -88,7 +86,7 @@ const WorkflowPreview = ({
       <div className='flex items-center justify-between p-4 pb-1 text-base font-semibold text-gray-900'>
         {`Test Run${!workflowRunningData?.result.sequence_number ? '' : `#${workflowRunningData?.result.sequence_number}`}`}
         <div className='p-1 cursor-pointer' onClick={() => handleCancelDebugAndPreviewPanel()}>
-          <RiCloseLine className='w-4 h-4 text-gray-500' />
+          <XClose className='w-4 h-4 text-gray-500' />
         </div>
       </div>
       <div className='grow relative flex flex-col'>
@@ -175,7 +173,7 @@ const WorkflowPreview = ({
                             copy(JSON.stringify(content))
                           Toast.notify({ type: 'success', message: t('common.actionMsg.copySuccessfully') })
                         }}>
-                        <RiClipboardLine className='w-3.5 h-3.5' />
+                        <Clipboard className='w-3.5 h-3.5' />
                         <div>{t('common.operation.copy')}</div>
                       </SimpleBtn>
                     )}

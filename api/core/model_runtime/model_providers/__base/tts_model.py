@@ -4,8 +4,6 @@ import uuid
 from abc import abstractmethod
 from typing import Optional
 
-from pydantic import ConfigDict
-
 from core.model_runtime.entities.model_entities import ModelPropertyKey, ModelType
 from core.model_runtime.errors.invoke import InvokeBadRequestError
 from core.model_runtime.model_providers.__base.ai_model import AIModel
@@ -16,9 +14,6 @@ class TTSModel(AIModel):
     Model class for ttstext model.
     """
     model_type: ModelType = ModelType.TTS
-
-    # pydantic configs
-    model_config = ConfigDict(protected_namespaces=())
 
     def invoke(self, model: str, tenant_id: str, credentials: dict, content_text: str, voice: str, streaming: bool,
                user: Optional[str] = None):

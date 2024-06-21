@@ -24,21 +24,21 @@ class SearXNGSearchTool(BuiltinTool):
     Tool for performing a search using SearXNG engine.
     """
 
-    SEARCH_TYPE: dict[str, str] = {
+    SEARCH_TYPE = {
         "page": "general",
         "news": "news",
         "image": "images",
         # "video": "videos",
         # "file": "files"
     }
-    LINK_FILED: dict[str, str] = {
+    LINK_FILED = {
         "page": "url",
         "news": "url",
         "image": "img_src",
         # "video": "iframe_src",
         # "file": "magnetlink"
     }
-    TEXT_FILED: dict[str, str] = {
+    TEXT_FILED = {
         "page": "content",
         "news": "content",
         "image": "img_src",

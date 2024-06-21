@@ -67,7 +67,6 @@ const translation = {
     manageInTools: 'Manage in Tools',
     workflowAsToolTip: 'Tool reconfiguration is required after the workflow update.',
     viewDetailInTracingPanel: 'View details',
-    syncingData: 'Syncing data, just a few seconds.',
   },
   errorMsg: {
     fieldRequired: '{{field}} is required',
@@ -411,25 +410,6 @@ const translation = {
       iteration_one: '{{count}} Iteration',
       iteration_other: '{{count}} Iterations',
       currentIteration: 'Current Iteration',
-    },
-    note: {
-      addNote: 'Add Note',
-      editor: {
-        placeholder: 'Write your note...',
-        small: 'Small',
-        medium: 'Medium',
-        large: 'Large',
-        bold: 'Bold',
-        italic: 'Italic',
-        strikethrough: 'Strikethrough',
-        link: 'Link',
-        openLink: 'Open',
-        unlink: 'Unlink',
-        enterUrl: 'Enter URL...',
-        invalidUrl: 'Invalid URL',
-        bulletList: 'Bullet List',
-        showAuthor: 'Show Author',
-      },
     },
   },
   tracing: {

@@ -1,6 +1,6 @@
 from typing import Any, Optional, Union
 
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, validator
 
 from core.tools.entities.tool_entities import ToolInvokeMessage
 from core.tools.tool.builtin_tool import BuiltinTool
@@ -15,7 +15,7 @@ class TwilioAPIWrapper(BaseModel):
     named parameters to the constructor.
     """
 
-    client: Any = None  #: :meta private:
+    client: Any  #: :meta private:
     account_sid: Optional[str] = None
     """Twilio account string identifier."""
     auth_token: Optional[str] = None
@@ -32,8 +32,7 @@ class TwilioAPIWrapper(BaseModel):
         must be empty.
     """
 
-    @field_validator('client', mode='before')
-    @classmethod
+    @validator("client", pre=True, always=True)
     def set_validator(cls, values: dict) -> dict:
         """Validate that api key and python package exists in environment."""
         try:

@@ -7,9 +7,7 @@ from core.model_runtime.entities.message_entities import (
     ImagePromptMessageContent,
     PromptMessage,
     PromptMessageContentType,
-    PromptMessageTool,
     SystemPromptMessage,
-    ToolPromptMessage,
     UserPromptMessage,
 )
 from core.model_runtime.model_providers.volcengine_maas.errors import wrap_error
@@ -38,11 +36,10 @@ class MaaSClient(MaasService):
         client.set_sk(sk)
         return client
 
-    def chat(self, params: dict, messages: list[PromptMessage], stream=False, **extra_model_kwargs) -> Generator | dict:
+    def chat(self, params: dict, messages: list[PromptMessage], stream=False) -> Generator | dict:
         req = {
             'parameters': params,
-            'messages': [self.convert_prompt_message_to_maas_message(prompt) for prompt in messages],
-            **extra_model_kwargs,
+            'messages': [self.convert_prompt_message_to_maas_message(prompt) for prompt in messages]
         }
         if not stream:
             return super().chat(
@@ -92,22 +89,10 @@ class MaaSClient(MaasService):
             message = cast(AssistantPromptMessage, message)
             message_dict = {'role': ChatRole.ASSISTANT,
                             'content': message.content}
-            if message.tool_calls:
-                message_dict['tool_calls'] = [
-                    {
-                        'name': call.function.name,
-                        'arguments': call.function.arguments
-                    } for call in message.tool_calls
-                ]
         elif isinstance(message, SystemPromptMessage):
             message = cast(SystemPromptMessage, message)
             message_dict = {'role': ChatRole.SYSTEM,
                             'content': message.content}
-        elif isinstance(message, ToolPromptMessage):
-            message = cast(ToolPromptMessage, message)
-            message_dict = {'role': ChatRole.FUNCTION,
-                            'content': message.content,
-                            'name': message.tool_call_id}
         else:
             raise ValueError(f"Got unknown PromptMessage type {message}")
 
@@ -121,14 +106,3 @@ class MaaSClient(MaasService):
             raise wrap_error(e)
 
         return resp
-
-    @staticmethod
-    def transform_tool_prompt_to_maas_config(tool: PromptMessageTool):
-        return {
-            "type": "function",
-            "function": {
-                "name": tool.name,
-                "description": tool.description,
-                "parameters": tool.parameters,
-            }
-        }

@@ -2,7 +2,7 @@
 import type { FC } from 'react'
 import React from 'react'
 import cn from 'classnames'
-import { RiQuestionLine } from '@remixicon/react'
+import { HelpCircle } from '@/app/components/base/icons/src/vender/line/general'
 import Tooltip from '@/app/components/base/tooltip'
 type Props = {
   className?: string
@@ -32,7 +32,7 @@ const ItemPanel: FC<Props> = ({
           }
           selector={`agent-setting-tooltip-${name}`}
         >
-          <RiQuestionLine className='w-[14px] h-[14px] text-gray-400' />
+          <HelpCircle className='w-[14px] h-[14px] text-gray-400' />
         </Tooltip>
       </div>
       <div>

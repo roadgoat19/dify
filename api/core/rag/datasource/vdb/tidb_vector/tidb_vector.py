@@ -4,7 +4,7 @@ from typing import Any
 
 import sqlalchemy
 from flask import current_app
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, root_validator
 from sqlalchemy import JSON, TEXT, Column, DateTime, String, Table, create_engine, insert
 from sqlalchemy import text as sql_text
 from sqlalchemy.orm import Session, declarative_base
@@ -27,7 +27,7 @@ class TiDBVectorConfig(BaseModel):
     password: str
     database: str
 
-    @model_validator(mode='before')
+    @root_validator()
     def validate_config(cls, values: dict) -> dict:
         if not values['host']:
             raise ValueError("config TIDB_VECTOR_HOST is required")

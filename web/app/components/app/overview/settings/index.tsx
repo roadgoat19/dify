@@ -34,7 +34,6 @@ export type ConfigParams = {
   custom_disclaimer: string
   icon: string
   icon_background: string
-  show_workflow_steps: boolean
 }
 
 const prefixSettings = 'appOverview.overview.appInfo.settings'
@@ -48,8 +47,8 @@ const SettingsModal: FC<ISettingsModalProps> = ({
   const { notify } = useToastContext()
   const [isShowMore, setIsShowMore] = useState(false)
   const { icon, icon_background } = appInfo
-  const { title, description, copyright, privacy_policy, custom_disclaimer, default_language, show_workflow_steps } = appInfo.site
-  const [inputInfo, setInputInfo] = useState({ title, desc: description, copyright, privacyPolicy: privacy_policy, customDisclaimer: custom_disclaimer, show_workflow_steps })
+  const { title, description, copyright, privacy_policy, custom_disclaimer, default_language } = appInfo.site
+  const [inputInfo, setInputInfo] = useState({ title, desc: description, copyright, privacyPolicy: privacy_policy, customDisclaimer: custom_disclaimer })
   const [language, setLanguage] = useState(default_language)
   const [saveLoading, setSaveLoading] = useState(false)
   const { t } = useTranslation()
@@ -58,7 +57,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
   const [emoji, setEmoji] = useState({ icon, icon_background })
 
   useEffect(() => {
-    setInputInfo({ title, desc: description, copyright, privacyPolicy: privacy_policy, customDisclaimer: custom_disclaimer, show_workflow_steps })
+    setInputInfo({ title, desc: description, copyright, privacyPolicy: privacy_policy, customDisclaimer: custom_disclaimer })
     setLanguage(default_language)
     setEmoji({ icon, icon_background })
   }, [appInfo])
@@ -86,7 +85,6 @@ const SettingsModal: FC<ISettingsModalProps> = ({
       custom_disclaimer: inputInfo.customDisclaimer,
       icon: emoji.icon,
       icon_background: emoji.icon_background,
-      show_workflow_steps: inputInfo.show_workflow_steps,
     }
     await onSave?.(params)
     setSaveLoading(false)
@@ -136,14 +134,6 @@ const SettingsModal: FC<ISettingsModalProps> = ({
           defaultValue={language}
           onSelect={item => setLanguage(item.value as Language)}
         />
-        {(appInfo.mode === 'workflow' || appInfo.mode === 'advanced-chat') && <>
-          <div className={`mt-6 mb-2 font-medium ${s.settingTitle} text-gray-900 `}>{t(`${prefixSettings}.workflow.title`)}</div>
-          <SimpleSelect
-            items={[{ name: t(`${prefixSettings}.workflow.show`), value: 'true' }, { name: t(`${prefixSettings}.workflow.hide`), value: 'false' }]}
-            defaultValue={inputInfo.show_workflow_steps ? 'true' : 'false'}
-            onSelect={item => setInputInfo({ ...inputInfo, show_workflow_steps: item.value === 'true' })}
-          />
-        </>}
         {!isShowMore && <div className='w-full cursor-pointer mt-8' onClick={() => setIsShowMore(true)}>
           <div className='flex justify-between'>
             <div className={`font-medium ${s.settingTitle} flex-grow text-gray-900`}>{t(`${prefixSettings}.more.entry`)}</div>
@@ -182,8 +172,8 @@ const SettingsModal: FC<ISettingsModalProps> = ({
           />
         </>}
         <div className='mt-10 flex justify-end'>
-          <Button className='mr-2' onClick={onHide}>{t('common.operation.cancel')}</Button>
-          <Button variant='primary' onClick={onClickSave} loading={saveLoading}>{t('common.operation.save')}</Button>
+          <Button className='mr-2 flex-shrink-0 !text-sm' onClick={onHide}>{t('common.operation.cancel')}</Button>
+          <Button type='primary' className='flex-shrink-0 !text-sm' onClick={onClickSave} loading={saveLoading}>{t('common.operation.save')}</Button>
         </div>
         {showEmojiPicker && <EmojiPicker
           onSelect={(icon, icon_background) => {

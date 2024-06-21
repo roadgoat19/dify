@@ -7,10 +7,11 @@ import useSWR from 'swr'
 import Link from 'next/link'
 import Toast from '../components/base/toast'
 import style from './page.module.css'
-import { IS_CE_EDITION, SUPPORT_MAIL_LOGIN, apiPrefix, emailRegex } from '@/config'
+import { IS_CE_EDITION, SUPPORT_MAIL_LOGIN, apiPrefix } from '@/config'
 import Button from '@/app/components/base/button'
 import { login, oauth } from '@/service/common'
 import { getPurifyHref } from '@/utils'
+const validEmailReg = /^[\w\.-]+@([\w-]+\.)+[\w-]{2,}$/
 
 type IState = {
   formValid: boolean
@@ -77,7 +78,7 @@ const NormalForm = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const handleEmailPasswordLogin = async () => {
-    if (!emailRegex.test(email)) {
+    if (!validEmailReg.test(email)) {
       Toast.notify({
         type: 'error',
         message: t('login.error.emailInValid'),
@@ -156,8 +157,9 @@ const NormalForm = () => {
               <div className='w-full'>
                 <a href={getPurifyHref(`${apiPrefix}/oauth/login/github`)}>
                   <Button
+                    type='default'
                     disabled={isLoading}
-                    className='w-full hover:!bg-gray-50'
+                    className='w-full hover:!bg-gray-50 !text-sm !font-medium'
                   >
                     <>
                       <span className={
@@ -174,8 +176,9 @@ const NormalForm = () => {
               <div className='w-full'>
                 <a href={getPurifyHref(`${apiPrefix}/oauth/login/google`)}>
                   <Button
+                    type='default'
                     disabled={isLoading}
-                    className='w-full hover:!bg-gray-50'
+                    className='w-full hover:!bg-gray-50 !text-sm !font-medium'
                   >
                     <>
                       <span className={
@@ -269,10 +272,10 @@ const NormalForm = () => {
                 <div className='mb-2'>
                   <Button
                     tabIndex={0}
-                    variant='primary'
+                    type='primary'
                     onClick={handleEmailPasswordLogin}
                     disabled={isLoading}
-                    className="w-full"
+                    className="w-full !fone-medium !text-sm"
                   >{t('login.signBtn')}</Button>
                 </div>
               </form>

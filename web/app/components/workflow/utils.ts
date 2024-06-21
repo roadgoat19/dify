@@ -17,7 +17,6 @@ import type {
 } from './types'
 import { BlockEnum } from './types'
 import {
-  CUSTOM_NODE,
   ITERATION_NODE_Z_INDEX,
   NODE_WIDTH_X_OFFSET,
   START_INITIAL_POSITION,
@@ -106,8 +105,7 @@ export const initialNodes = (originNodes: Node[], originEdges: Edge[]) => {
   }, {} as Record<string, string[]>)
 
   return nodes.map((node) => {
-    if (!node.type)
-      node.type = CUSTOM_NODE
+    node.type = 'custom'
 
     const connectedEdges = getConnectedEdges([node], edges)
     node.data._connectedSourceHandleIds = connectedEdges.filter(edge => edge.source === node.id).map(edge => edge.sourceHandle || 'source')
@@ -191,7 +189,7 @@ export const initialEdges = (originEdges: Edge[], originNodes: Node[]) => {
 export const getLayoutByDagre = (originNodes: Node[], originEdges: Edge[]) => {
   const dagreGraph = new dagre.graphlib.Graph()
   dagreGraph.setDefaultEdgeLabel(() => ({}))
-  const nodes = cloneDeep(originNodes).filter(node => !node.parentId && node.type === CUSTOM_NODE)
+  const nodes = cloneDeep(originNodes).filter(node => !node.parentId)
   const edges = cloneDeep(originEdges).filter(edge => !edge.data?.isInIteration)
   dagreGraph.setGraph({
     rankdir: 'LR',
@@ -282,10 +280,10 @@ export const getNodesConnectedSourceOrTargetHandleIdsMap = (changes: ConnectedSo
   return nodesConnectedSourceOrTargetHandleIdsMap
 }
 
-export const generateNewNode = ({ data, position, id, zIndex, type, ...rest }: Omit<Node, 'id'> & { id?: string }) => {
+export const generateNewNode = ({ data, position, id, zIndex, ...rest }: Omit<Node, 'id'> & { id?: string }) => {
   return {
     id: id || `${Date.now()}`,
-    type: type || CUSTOM_NODE,
+    type: 'custom',
     data,
     position,
     targetPosition: Position.Left,

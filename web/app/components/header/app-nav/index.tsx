@@ -6,12 +6,9 @@ import { useParams } from 'next/navigation'
 import useSWRInfinite from 'swr/infinite'
 import { flatten } from 'lodash-es'
 import produce from 'immer'
-import {
-  RiRobot2Fill,
-  RiRobot2Line,
-} from '@remixicon/react'
 import Nav from '../nav'
 import { type NavItem } from '../nav/nav-selector'
+import { Robot, RobotActive } from '../../base/icons/src/public/header-nav/studio'
 import { fetchAppList } from '@/service/apps'
 import CreateAppTemplateDialog from '@/app/components/app/create-app-dialog'
 import CreateAppModal from '@/app/components/app/create-app-modal'
@@ -42,7 +39,7 @@ const getKey = (
 const AppNav = () => {
   const { t } = useTranslation()
   const { appId } = useParams()
-  const { isCurrentWorkspaceEditor } = useAppContext()
+  const { isCurrentWorkspaceManager } = useAppContext()
   const appDetail = useAppStore(state => state.appDetail)
   const [showNewAppDialog, setShowNewAppDialog] = useState(false)
   const [showNewAppTemplateDialog, setShowNewAppTemplateDialog] = useState(false)
@@ -74,8 +71,8 @@ const AppNav = () => {
     if (appsData) {
       const appItems = flatten(appsData?.map(appData => appData.data))
       const navItems = appItems.map((app) => {
-        const link = ((isCurrentWorkspaceEditor, app) => {
-          if (!isCurrentWorkspaceEditor) {
+        const link = ((isCurrentWorkspaceManager, app) => {
+          if (!isCurrentWorkspaceManager) {
             return `/app/${app.id}/overview`
           }
           else {
@@ -84,7 +81,7 @@ const AppNav = () => {
             else
               return `/app/${app.id}/configuration`
           }
-        })(isCurrentWorkspaceEditor, app)
+        })(isCurrentWorkspaceManager, app)
         return {
           id: app.id,
           icon: app.icon,
@@ -96,7 +93,7 @@ const AppNav = () => {
       })
       setNavItems(navItems)
     }
-  }, [appsData, isCurrentWorkspaceEditor, setNavItems])
+  }, [appsData, isCurrentWorkspaceManager, setNavItems])
 
   // update current app name
   useEffect(() => {
@@ -115,8 +112,8 @@ const AppNav = () => {
     <>
       <Nav
         isApp
-        icon={<RiRobot2Line className='w-4 h-4' />}
-        activeIcon={<RiRobot2Fill className='w-4 h-4' />}
+        icon={<Robot className='w-4 h-4' />}
+        activeIcon={<RobotActive className='w-4 h-4' />}
         text={t('common.menus.apps')}
         activeSegment={['apps', 'app']}
         link='/apps'
