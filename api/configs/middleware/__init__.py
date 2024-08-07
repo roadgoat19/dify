@@ -13,6 +13,7 @@ from configs.middleware.storage.oci_storage_config import OCIStorageConfig
 from configs.middleware.storage.tencent_cos_storage_config import TencentCloudCOSStorageConfig
 from configs.middleware.vdb.analyticdb_config import AnalyticdbConfig
 from configs.middleware.vdb.chroma_config import ChromaConfig
+from configs.middleware.vdb.couchbase_config import CouchbaseConfig
 from configs.middleware.vdb.elasticsearch_config import ElasticsearchConfig
 from configs.middleware.vdb.milvus_config import MilvusConfig
 from configs.middleware.vdb.myscale_config import MyScaleConfig
@@ -25,7 +26,6 @@ from configs.middleware.vdb.relyt_config import RelytConfig
 from configs.middleware.vdb.tencent_vector_config import TencentVectorDBConfig
 from configs.middleware.vdb.tidb_vector_config import TiDBVectorConfig
 from configs.middleware.vdb.weaviate_config import WeaviateConfig
-from configs.middleware.vdb.couchbase_config import CouchbaseConfig
 
 
 class StorageConfig(BaseSettings):
