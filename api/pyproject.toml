@@ -197,6 +197,7 @@ safetensors = "~0.4.3"
 ############################################################
 # Tool dependencies required by tool implementations
 ############################################################
+couchbase = "^4.3.0"
 
 [tool.poetry.group.tool.dependencies]
 arxiv = "2.1.0"
