@@ -572,14 +572,9 @@ def add_qdrant_doc_id_index(field: str):
 
 @click.command("create-tenant", help="Create account and tenant.")
 @click.option("--email", prompt=True, help="The email address of the tenant account.")
-<<<<<<< HEAD
 @click.option("--name", prompt=True, help="The workspace name of the tenant account.")
 @click.option("--language", prompt=True, help="Account language, default: en-US.")
 def create_tenant(email: str, language: Optional[str] = None, name: Optional[str] = None):
-=======
-@click.option("--language", prompt=True, help="Account language, default: en-US.")
-def create_tenant(email: str, language: Optional[str] = None):
->>>>>>> 9d575c52 (resolved conflicts)
     """
     Create tenant account
     """
@@ -598,18 +593,14 @@ def create_tenant(email: str, language: Optional[str] = None):
 
     if language not in languages:
         language = "en-US"
-<<<<<<< HEAD
 
     name = name.strip()
-=======
->>>>>>> 9d575c52 (resolved conflicts)
 
     # generate random password
     new_password = secrets.token_urlsafe(16)
 
     # register account
     account = RegisterService.register(email=email, name=account_name, password=new_password, language=language)
-<<<<<<< HEAD
 
     TenantService.create_owner_tenant_if_not_exist(account, name)
 
@@ -619,21 +610,9 @@ def create_tenant(email: str, language: Optional[str] = None):
             fg="green",
         )
     )
-=======
->>>>>>> 9d575c52 (resolved conflicts)
 
 
-<<<<<<< HEAD
-=======
-    click.echo(
-        click.style(
-            "Congratulations! Account and tenant created.\n" "Account: {}\nPassword: {}".format(email, new_password),
-            fg="green",
-        )
-    )
 
-
->>>>>>> 9d575c52 (resolved conflicts)
 @click.command("upgrade-db", help="upgrade the database")
 def upgrade_db():
     click.echo("Preparing database migration...")
