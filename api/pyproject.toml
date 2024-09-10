@@ -198,7 +198,6 @@ safetensors = "~0.4.3"
 # Tool dependencies required by tool implementations
 ############################################################
 
-
 [tool.poetry.group.tool.dependencies]
 arxiv = "2.1.0"
 cloudscraper = "1.2.71"
